@@ -1,0 +1,33 @@
+class Employee:
+    def __init__(self, name, position, salary):
+        self.name = name
+        self.position = position
+        self.salary = salary
+    def __repr__(self):
+        return f"{self.name} ({self.position}): {self.salary}"
+class Department:
+    def __init__(self, name):
+        self.name = name
+        self.employees = []
+    def add_employee(self, employee):
+        if isinstance(employee, Employee):
+            self.employees.append(employee)
+    def remove_employee(self, employee_name):
+        self.employees = [e for e in self.employees if e.name != employee_name]
+    def total_salary(self):
+        return sum(e.salary for e in self.employees)
+    def __repr__(self):
+        return f"Department {self.name}: {', '.join(e.name for e in self.employees)}"
+# Example Usage
+if __name__ == "__main__":
+    emp1 = Employee("Alice", "Developer", 5000)
+    emp2 = Employee("Bob", "Designer", 4000)
+    emp3 = Employee("Charlie", "Manager", 7000)
+    it_department = Department("IT")
+    it_department.add_employee(emp1)
+    it_department.add_employee(emp2)
+    it_department.add_employee(emp3)
+    print(it_department)
+    it_department.remove_employee("Bob")
+    print(it_department)
+    print("Total Salary:", it_department.total_salary())
